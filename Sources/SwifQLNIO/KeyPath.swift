@@ -106,6 +106,9 @@ extension KeyPath: SwifQLPart {}
 
 extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
     public var table: String {
+        if let kp = self as? FluentKitFieldable {
+            return kp.schema
+        }
         if let model = Root.self as? Tableable.Type {
             return model.entity
         }
@@ -116,7 +119,12 @@ extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
 extension KeyPath: CustomStringConvertible where Root: Reflectable {}
 
 extension KeyPath: SwifQLable where Root: Reflectable {
-    public var parts: [SwifQLPart] { [SwifQLPartKeyPath(table: table, paths: paths)] }
+    public var parts: [SwifQLPart] {
+        if let kp = self as? FluentKitFieldable {
+            return [SwifQLPartKeyPath(table: kp.schema, paths: [kp.key])]
+        }
+        return [SwifQLPartKeyPath(table: table, paths: paths)]
+    }
 }
 
 extension KeyPath: Keypathable where Root: Reflectable {
