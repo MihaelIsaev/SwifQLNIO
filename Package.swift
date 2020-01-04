@@ -9,8 +9,7 @@ let package = Package(
         .library(name: "SwifQLNIO", targets: ["SwifQLNIO"]),
         ],
     dependencies: [
-        .package(path: "../SwifQL"),
-//        .package(url: "https://github.com/MihaelIsaev/SwifQL.git", from:"1.0.0"),
+        .package(url: "https://github.com/MihaelIsaev/SwifQL.git", from:"1.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.10.0"),
         ],
     targets: [
