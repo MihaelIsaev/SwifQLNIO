@@ -105,7 +105,12 @@ extension KeyPath where Root: Reflectable {
 extension KeyPath: SwifQLPart {}
 
 extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
-    public var table: String { String(describing: Root.self) }
+    public var table: String {
+        if let model = Root.self as? Tableable.Type {
+            return model.entity
+        }
+        return String(describing: Root.self)
+    }
 }
 
 extension KeyPath: CustomStringConvertible where Root: Reflectable {}
