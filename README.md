@@ -3,7 +3,7 @@
         <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
     </a>
     <a href="https://swift.org">
-        <img src="https://img.shields.io/badge/swift-4.2-brightgreen.svg" alt="Swift 4.2">
+        <img src="https://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 4.2">
     </a>
     <img src="https://circleci.com/gh/MihaelIsaev/SwifQLNIO.svg?style=svg" alt="CircleCI">
 </p>
