@@ -25,19 +25,19 @@ extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
     public typealias ARoot = AliasedKeyPath
     
     public var queryValue: String {
-        return formattedPath(alias, kp).pathWithTable
+        formattedPath(alias, kp).pathWithTable
     }
     
     public var originalKeyPath: KeyPath<M, V> {
-        return kp
+        kp
     }
     
     public var path: String {
-        return formattedPath(alias, kp).path
+        formattedPath(alias, kp).path
     }
     
     public var lastPath: String {
-        return formattedPath(alias, kp).lastPath
+        formattedPath(alias, kp).lastPath
     }
 }
 
@@ -46,21 +46,21 @@ extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
 extension AliasedKeyPath: SwifQLPart {}
 
 extension AliasedKeyPath: SwifQLKeyPathable {
-    public var table: String { return alias }
-    public var paths: [String] { return kp.paths }
+    public var table: String { alias }
+    public var paths: [String] { kp.paths }
 }
 
 extension AliasedKeyPath: CustomStringConvertible {}
 
 extension AliasedKeyPath: SwifQLable {
-    public var parts: [SwifQLPart] { return [SwifQLPartKeyPath(table: table, paths: kp.paths)] }
+    public var parts: [SwifQLPart] { [SwifQLPartKeyPath(table: table, paths: kp.paths)] }
 }
 
 extension AliasedKeyPath: Keypathable {
-    public var shortPath: String { return _FormattedKeyPath.flattenKeyPath(self.paths) }
+    public var shortPath: String { _FormattedKeyPath.flattenKeyPath(self.paths) }
     
     public func fullPath(table: String) -> String {
-        return formattedPath(table, kp).pathWithTable
+        formattedPath(table, kp).pathWithTable
     }
 }
 
@@ -72,19 +72,17 @@ extension KeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple, KeyPathLastPath
     public typealias ARoot = KeyPath
     
     public var queryValue: String {
-        return formattedPath(Root.self, self).pathWithTable
+        formattedPath(Root.self, self).pathWithTable
     }
     
-    public var originalKeyPath: KeyPath<Root, Value> {
-        return self
-    }
+    public var originalKeyPath: KeyPath<Root, Value> { self }
     
     public var path: String {
-        return formattedPath(Root.self, self).path
+        formattedPath(Root.self, self).path
     }
     
     public var lastPath: String {
-        return formattedPath(Root.self, self).lastPath
+        formattedPath(Root.self, self).lastPath
     }
 }
 
@@ -107,21 +105,21 @@ extension KeyPath where Root: Reflectable {
 extension KeyPath: SwifQLPart {}
 
 extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
-    public var table: String { return String(describing: Root.self) }
+    public var table: String { String(describing: Root.self) }
 }
 
 extension KeyPath: CustomStringConvertible where Root: Reflectable {}
 
 extension KeyPath: SwifQLable where Root: Reflectable {
-    public var parts: [SwifQLPart] { return [SwifQLPartKeyPath(table: table, paths: paths)] }
+    public var parts: [SwifQLPart] { [SwifQLPartKeyPath(table: table, paths: paths)] }
 }
 
 extension KeyPath: Keypathable where Root: Reflectable {
-    public var shortPath: String { return _FormattedKeyPath.flattenKeyPath(self.paths) }
-    public var lastPath: String { return self.paths.last ?? "nnnnnn" }
+    public var shortPath: String { _FormattedKeyPath.flattenKeyPath(self.paths) }
+    public var lastPath: String { self.paths.last ?? "nnnnnn" }
     
     public func fullPath(table: String) -> String {
-        return formattedPath(table, self).pathWithTable
+        formattedPath(table, self).pathWithTable
     }
 }
 
@@ -162,5 +160,5 @@ func formattedPath<T, V>(_ table: T.Type, _ kp: KeyPath<T, V>) -> _FormattedKeyP
 }
 
 func formattedPath<T, V>(_ table: String, _ kp: KeyPath<T, V>) -> _FormattedKeyPath where T: Reflectable {
-    return _FormattedKeyPath(table: table, paths: kp.paths)
+    _FormattedKeyPath(table: table, paths: kp.paths)
 }

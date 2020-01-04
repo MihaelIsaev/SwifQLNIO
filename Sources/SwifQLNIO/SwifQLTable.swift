@@ -15,13 +15,13 @@ extension Reflectable where Self: Decodable {
     ///
     /// See `Reflectable.reflectProperties(depth:)`
     public static func reflectProperties(depth: Int) throws -> [ReflectedProperty] {
-        return try decodeProperties(depth: depth)
+        try decodeProperties(depth: depth)
     }
     
     /// Default `Reflectable` implementation for types that are also `Decodable`.
     ///
     /// See `AnyReflectable`.
     public static func anyReflectProperty(valueType: Any.Type, keyPath: AnyKeyPath) throws -> ReflectedProperty? {
-        return try anyDecodeProperty(valueType: valueType, keyPath: keyPath)
+        try anyDecodeProperty(valueType: valueType, keyPath: keyPath)
     }
 }
