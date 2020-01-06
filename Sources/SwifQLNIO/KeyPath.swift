@@ -46,7 +46,7 @@ extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
 extension AliasedKeyPath: SwifQLPart {}
 
 extension AliasedKeyPath: SwifQLKeyPathable {
-    public var table: String { return alias }
+    public var table: String? { return alias }
     public var paths: [String] { return kp.paths }
 }
 
@@ -107,7 +107,7 @@ extension KeyPath where Root: Reflectable {
 extension KeyPath: SwifQLPart {}
 
 extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
-    public var table: String { return String(describing: Root.self) }
+    public var table: String? { return String(describing: Root.self) }
 }
 
 extension KeyPath: CustomStringConvertible where Root: Reflectable {}
