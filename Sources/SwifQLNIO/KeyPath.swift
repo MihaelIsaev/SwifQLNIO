@@ -46,7 +46,7 @@ extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
 extension AliasedKeyPath: SwifQLPart {}
 
 extension AliasedKeyPath: SwifQLKeyPathable {
-    public var table: String { alias }
+    public var table: String? { alias }
     public var paths: [String] { kp.paths }
 }
 
@@ -105,7 +105,7 @@ extension KeyPath where Root: Reflectable {
 extension KeyPath: SwifQLPart {}
 
 extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
-    public var table: String {
+    public var table: String? {
         if let kp = self as? FluentKitFieldable {
             return kp.schema
         }
